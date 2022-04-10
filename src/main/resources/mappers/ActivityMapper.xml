@@ -1,0 +1,744 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.myg.yxy.dao.ActivityDao">
+
+	<resultMap id="baseResultModelMap" type="com.myg.yxy.model.ActivityModel">
+		<result column="id" property="id"/>
+		<result column="name" property="name"/>
+		<result column="time" property="time"/>
+		<result column="address" property="address"/>
+		<result column="apply_number" property="applyNumber"/>
+		<result column="compere" property="compere"/>
+		<result column="link_mobile" property="linkMobile"/>
+		<result column="cover_img" property="coverImg"/>
+		<result column="description" property="description"/>
+		<result column="status" property="status"/>
+		<result column="create_user_name" property="createUserName"/>
+		<result column="create_user_id" property="createUserId"/>
+		<result column="create_date" property="createDate"/>
+		<result column="modify_user_name" property="modifyUserName"/>
+		<result column="modify_user_id" property="modifyUserId"/>
+		<result column="modify_date" property="modifyDate"/>
+        <result column="end_time" property="endTime"/>
+	</resultMap>
+
+	<sql id="baseColumnList">
+		 id
+		,name
+		,time
+		,address
+		,apply_number
+		,compere
+		,link_mobile
+		,cover_img
+		,description
+		,status
+		,create_user_name
+		,create_user_id
+		,create_date
+		,modify_user_name
+		,modify_user_id
+		,modify_date
+	</sql>
+
+	<select id="getActivityListPage"
+			parameterType="com.myg.yxy.model.ActivityModel"
+			resultType="com.myg.yxy.model.ActivityModel">
+
+		select
+			id as id,
+			name as name,
+			time as time,
+			address as address,
+			compere as compere,
+			cover_img as coverImg
+		from busi_activity
+
+		<where>
+			<if test="id != null">
+				and id = #{id}
+			</if>
+
+			<if test="name != null and name != ''">
+				and name = #{name}
+			</if>
+
+			<if test="time != null and time != ''">
+				and time = #{time}
+			</if>
+
+			<if test="address != null and address != ''">
+				and address = #{address}
+			</if>
+
+			<if test="applyNumber != null">
+				and apply_number = #{applyNumber}
+			</if>
+
+			<if test="compere != null and compere != ''">
+				and compere = #{compere}
+			</if>
+
+			<if test="linkMobile != null and linkMobile != ''">
+				and link_mobile = #{linkMobile}
+			</if>
+
+			<if test="coverImg != null and coverImg != ''">
+				and cover_img = #{coverImg}
+			</if>
+
+			<if test="description != null and description != ''">
+				and description = #{description}
+			</if>
+
+			<if test="status != null">
+				and status = #{status}
+			</if>
+
+			<if test="createUserName != null and createUserName != ''">
+				and create_user_name = #{createUserName}
+			</if>
+
+			<if test="createUserId != null">
+				and create_user_id = #{createUserId}
+			</if>
+
+			<if test="createDate != null">
+				and create_date = #{createDate}
+			</if>
+
+			<if test="modifyUserName != null and modifyUserName != ''">
+				and modify_user_name = #{modifyUserName}
+			</if>
+
+			<if test="modifyUserId != null and modifyUserId != ''">
+				and modify_user_id = #{modifyUserId}
+			</if>
+
+			<if test="modifyDate != null">
+				and modify_date = #{modifyDate}
+			</if>
+		</where>
+	</select>
+
+	<!--
+	* insert新增一条数据
+	-->
+	<insert id="getInsert"
+			parameterType="com.myg.yxy.model.ActivityModel"
+			useGeneratedKeys="true"
+			keyProperty="id">
+
+	        insert into busi_activity
+	            (
+		         id
+		        ,name
+		        ,time
+		        ,address
+		        ,apply_number
+		        ,compere
+		        ,link_mobile
+		        ,cover_img
+		        ,description
+		        ,status
+		        ,create_user_name
+		        ,create_user_id
+		        ,create_date
+		        ,modify_user_name
+		        ,modify_user_id
+		        ,modify_date
+	            )
+	        values
+	            (
+		         #{id}
+		        ,#{name}
+		        ,#{time}
+		        ,#{address}
+		        ,#{applyNumber}
+		        ,#{compere}
+		        ,#{linkMobile}
+		        ,#{coverImg}
+		        ,#{description}
+		        ,#{status}
+		        ,#{createUserName}
+		        ,#{createUserId}
+		        ,#{createDate}
+		        ,#{modifyUserName}
+		        ,#{modifyUserId}
+		        ,#{modifyDate}
+	            )
+	</insert>
+
+	<!--
+	* deleteById根据主键删除一条数据
+	-->
+	<delete id="deleteById"
+	        parameterType="long">
+
+	        delete from busi_activity
+
+	        <where>
+	            <if test="id != null">
+	                id = #{id}
+	            </if>
+	        </where>
+	</delete>
+
+	<!--
+	* deleteByIds根据主键批量删除数据
+	-->
+	<delete id="deleteByIds"
+	        parameterType="long">
+
+	        delete from busi_activity where id in
+
+	        <foreach  collection="array" item="id" open="(" separator="," close=")">
+	            #{id}
+	        </foreach>
+	</delete>
+
+	<!--
+	* deleteBy根据实体对象删除数据
+	-->
+	<delete id="deleteBy"
+	        parameterType="com.myg.yxy.model.ActivityModel">
+
+	        delete from busi_activity
+
+			<where>
+				<if test="id != null">
+					and id = #{id}
+				</if>
+
+				<if test="name != null and name != ''">
+					and name = #{name}
+				</if>
+
+				<if test="time != null and time != ''">
+					and time = #{time}
+				</if>
+
+				<if test="address != null and address != ''">
+					and address = #{address}
+				</if>
+
+				<if test="applyNumber != null">
+					and apply_number = #{applyNumber}
+				</if>
+
+				<if test="compere != null and compere != ''">
+					and compere = #{compere}
+				</if>
+
+				<if test="linkMobile != null and linkMobile != ''">
+					and link_mobile = #{linkMobile}
+				</if>
+
+				<if test="coverImg != null and coverImg != ''">
+					and cover_img = #{coverImg}
+				</if>
+
+				<if test="description != null and description != ''">
+					and description = #{description}
+				</if>
+
+				<if test="status != null">
+					and status = #{status}
+				</if>
+
+				<if test="createUserName != null and createUserName != ''">
+					and create_user_name = #{createUserName}
+				</if>
+
+				<if test="createUserId != null">
+					and create_user_id = #{createUserId}
+				</if>
+
+				<if test="createDate != null">
+					and create_date = #{createDate}
+				</if>
+
+				<if test="modifyUserName != null and modifyUserName != ''">
+					and modify_user_name = #{modifyUserName}
+				</if>
+
+				<if test="modifyUserId != null and modifyUserId != ''">
+					and modify_user_id = #{modifyUserId}
+				</if>
+
+				<if test="modifyDate != null">
+					and modify_date = #{modifyDate}
+				</if>
+			</where>
+	</delete>
+
+	<!--
+	* updateById根据主键更新一条数据
+	-->
+	<update id="getUpdateById"
+	        parameterType="com.myg.yxy.model.ActivityModel">
+
+	        update busi_activity
+
+	        <set>
+				<if test="id != null">
+					id = #{id},
+				</if>
+
+				<if test="name != null and name != ''">
+					name = #{name},
+				</if>
+
+				<if test="time != null and time != ''">
+					time = #{time},
+				</if>
+
+				<if test="address != null and address != ''">
+					address = #{address},
+				</if>
+
+				<if test="applyNumber != null">
+					apply_number = #{applyNumber},
+				</if>
+
+				<if test="compere != null and compere != ''">
+					compere = #{compere},
+				</if>
+
+				<if test="linkMobile != null and linkMobile != ''">
+					link_mobile = #{linkMobile},
+				</if>
+
+				<if test="coverImg != null and coverImg != ''">
+					cover_img = #{coverImg},
+				</if>
+
+				<if test="description != null and description != ''">
+					description = #{description},
+				</if>
+
+				<if test="status != null">
+					status = #{status},
+				</if>
+
+				<if test="createUserName != null and createUserName != ''">
+					create_user_name = #{createUserName},
+				</if>
+
+				<if test="createUserId != null">
+					create_user_id = #{createUserId},
+				</if>
+
+				<if test="createDate != null">
+					create_date = #{createDate},
+				</if>
+
+				<if test="modifyUserName != null and modifyUserName != ''">
+					modify_user_name = #{modifyUserName},
+				</if>
+
+				<if test="modifyUserId != null and modifyUserId != ''">
+					modify_user_id = #{modifyUserId},
+				</if>
+
+				<if test="modifyDate != null">
+					modify_date = #{modifyDate},
+				</if>
+
+	        </set>
+
+	        <where>
+	            <if test="id != null">
+	                id = #{id}
+	            </if>
+	        </where>
+	</update>
+
+	<!--
+	* getModelById根据主键获取一个实体对象
+	-->
+	<select id="getModelById"
+	        parameterType="long"
+			resultMap="baseResultModelMap">
+
+	        select
+	            <include refid="baseColumnList"/>
+	        from busi_activity
+	        where id = #{id}
+	</select>
+
+	<!--
+	* getModelBy根据实体对象动态条件获取一个实体对象
+	-->
+	<select id="getModelBy"
+	        parameterType="com.myg.yxy.model.ActivityModel"
+			resultMap="baseResultModelMap">
+
+	        select
+	            <include refid="baseColumnList"/>
+	        from busi_activity
+
+			<where>
+				<if test="id != null">
+					and id = #{id}
+				</if>
+
+				<if test="name != null and name != ''">
+					and name = #{name}
+				</if>
+
+				<if test="time != null and time != ''">
+					and time = #{time}
+				</if>
+
+				<if test="address != null and address != ''">
+					and address = #{address}
+				</if>
+
+				<if test="applyNumber != null">
+					and apply_number = #{applyNumber}
+				</if>
+
+				<if test="compere != null and compere != ''">
+					and compere = #{compere}
+				</if>
+
+				<if test="linkMobile != null and linkMobile != ''">
+					and link_mobile = #{linkMobile}
+				</if>
+
+				<if test="coverImg != null and coverImg != ''">
+					and cover_img = #{coverImg}
+				</if>
+
+				<if test="description != null and description != ''">
+					and description = #{description}
+				</if>
+
+				<if test="status != null">
+					and status = #{status}
+				</if>
+
+				<if test="createUserName != null and createUserName != ''">
+					and create_user_name = #{createUserName}
+				</if>
+
+				<if test="createUserId != null">
+					and create_user_id = #{createUserId}
+				</if>
+
+				<if test="createDate != null">
+					and create_date = #{createDate}
+				</if>
+
+				<if test="modifyUserName != null and modifyUserName != ''">
+					and modify_user_name = #{modifyUserName}
+				</if>
+
+				<if test="modifyUserId != null and modifyUserId != ''">
+					and modify_user_id = #{modifyUserId}
+				</if>
+
+				<if test="modifyDate != null">
+					and modify_date = #{modifyDate}
+				</if>
+
+			</where>
+	</select>
+
+	<!--
+	* getList根据实体对象动态条件查询不分页
+	-->
+	<select id="getList"
+	        parameterType="com.myg.yxy.model.ActivityModel"
+			resultMap="baseResultModelMap">
+
+	        select
+	            <include refid="baseColumnList"/>
+	        from busi_activity
+
+			<where>
+				<if test="id != null">
+					and id = #{id}
+				</if>
+
+				<if test="name != null and name != ''">
+					and name = #{name}
+				</if>
+
+				<if test="time != null and time != ''">
+					and time = #{time}
+				</if>
+
+				<if test="address != null and address != ''">
+					and address = #{address}
+				</if>
+
+				<if test="applyNumber != null">
+					and apply_number = #{applyNumber}
+				</if>
+
+				<if test="compere != null and compere != ''">
+					and compere = #{compere}
+				</if>
+
+				<if test="linkMobile != null and linkMobile != ''">
+					and link_mobile = #{linkMobile}
+				</if>
+
+				<if test="coverImg != null and coverImg != ''">
+					and cover_img = #{coverImg}
+				</if>
+
+				<if test="description != null and description != ''">
+					and description = #{description}
+				</if>
+
+				<if test="status != null">
+					and status = #{status}
+				</if>
+
+				<if test="createUserName != null and createUserName != ''">
+					and create_user_name = #{createUserName}
+				</if>
+
+				<if test="createUserId != null">
+					and create_user_id = #{createUserId}
+				</if>
+
+				<if test="createDate != null">
+					and create_date = #{createDate}
+				</if>
+
+				<if test="modifyUserName != null and modifyUserName != ''">
+					and modify_user_name = #{modifyUserName}
+				</if>
+
+				<if test="modifyUserId != null and modifyUserId != ''">
+					and modify_user_id = #{modifyUserId}
+				</if>
+
+				<if test="modifyDate != null">
+					and modify_date = #{modifyDate}
+				</if>
+			</where>
+	</select>
+
+	<!--
+	* getListPage根据实体对象动态条件查询分页
+	-->
+	<select id="getListPage"
+	        parameterType="com.myg.yxy.model.ActivityModel"
+			resultMap="baseResultModelMap">
+
+	        select
+	            <include refid="baseColumnList"/>
+	        from busi_activity
+
+			<where>
+				<if test="id != null">
+					and id = #{id}
+				</if>
+
+				<if test="name != null and name != ''">
+					and name = #{name}
+				</if>
+
+				<if test="time != null and time != ''">
+					and time = #{time}
+				</if>
+
+				<if test="address != null and address != ''">
+					and address = #{address}
+				</if>
+
+				<if test="applyNumber != null">
+					and apply_number = #{applyNumber}
+				</if>
+
+				<if test="compere != null and compere != ''">
+					and compere = #{compere}
+				</if>
+
+				<if test="linkMobile != null and linkMobile != ''">
+					and link_mobile = #{linkMobile}
+				</if>
+
+				<if test="coverImg != null and coverImg != ''">
+					and cover_img = #{coverImg}
+				</if>
+
+				<if test="description != null and description != ''">
+					and description = #{description}
+				</if>
+
+				<if test="status != null">
+					and status = #{status}
+				</if>
+
+				<if test="createUserName != null and createUserName != ''">
+					and create_user_name = #{createUserName}
+				</if>
+
+				<if test="createUserId != null">
+					and create_user_id = #{createUserId}
+				</if>
+
+				<if test="createDate != null">
+					and create_date = #{createDate}
+				</if>
+
+				<if test="modifyUserName != null and modifyUserName != ''">
+					and modify_user_name = #{modifyUserName}
+				</if>
+
+				<if test="modifyUserId != null and modifyUserId != ''">
+					and modify_user_id = #{modifyUserId}
+				</if>
+
+				<if test="modifyDate != null">
+					and modify_date = #{modifyDate}
+				</if>
+			</where>
+	</select>
+
+	<!--
+	* checkById根据主键检查数据是否存在
+	-->
+	<select id="checkById"
+	        parameterType="long"
+	        resultType="java.lang.Integer">
+
+	        select count(1) from busi_activity
+
+	        <where>
+	            <if test="id != null">
+	                id = #{id}
+	            </if>
+	        </where>
+	</select>
+
+	<!--
+	* checkBy根据实体对象检查数据是否存在
+	-->
+	<select id="checkBy"
+	        parameterType="com.myg.yxy.model.ActivityModel"
+	        resultType="java.lang.Integer">
+
+	        select count(1) from busi_activity
+
+			<where>
+				<if test="id != null">
+					and id = #{id}
+				</if>
+
+				<if test="name != null and name != ''">
+					and name = #{name}
+				</if>
+
+				<if test="time != null and time != ''">
+					and time = #{time}
+				</if>
+
+				<if test="address != null and address != ''">
+					and address = #{address}
+				</if>
+
+				<if test="applyNumber != null">
+					and apply_number = #{applyNumber}
+				</if>
+
+				<if test="compere != null and compere != ''">
+					and compere = #{compere}
+				</if>
+
+				<if test="linkMobile != null and linkMobile != ''">
+					and link_mobile = #{linkMobile}
+				</if>
+
+				<if test="coverImg != null and coverImg != ''">
+					and cover_img = #{coverImg}
+				</if>
+
+				<if test="description != null and description != ''">
+					and description = #{description}
+				</if>
+
+				<if test="status != null">
+					and status = #{status}
+				</if>
+
+				<if test="createUserName != null and createUserName != ''">
+					and create_user_name = #{createUserName}
+				</if>
+
+				<if test="createUserId != null">
+					and create_user_id = #{createUserId}
+				</if>
+
+				<if test="createDate != null">
+					and create_date = #{createDate}
+				</if>
+
+				<if test="modifyUserName != null and modifyUserName != ''">
+					and modify_user_name = #{modifyUserName}
+				</if>
+
+				<if test="modifyUserId != null and modifyUserId != ''">
+					and modify_user_id = #{modifyUserId}
+				</if>
+
+				<if test="modifyDate != null">
+					and modify_date = #{modifyDate}
+				</if>
+			</where>
+	</select>
+
+	<!--
+	* insertBatch批量新增数据
+	-->
+	<insert id="insertBatch"
+	        parameterType="java.util.List">
+
+	        insert into busi_activity
+	            (
+		         id
+		        ,name
+		        ,time
+		        ,address
+		        ,apply_number
+		        ,compere
+		        ,link_mobile
+		        ,cover_img
+		        ,description
+		        ,status
+		        ,create_user_name
+		        ,create_user_id
+		        ,create_date
+		        ,modify_user_name
+		        ,modify_user_id
+		        ,modify_date
+	            )
+	        values
+	        <foreach collection="list" item="item" index="index" separator=",">
+	            (
+		         #{item.id}
+		        ,#{item.name}
+		        ,#{item.time}
+		        ,#{item.address}
+		        ,#{item.applyNumber}
+		        ,#{item.compere}
+		        ,#{item.linkMobile}
+		        ,#{item.coverImg}
+		        ,#{item.description}
+		        ,#{item.status}
+		        ,#{item.createUserName}
+		        ,#{item.createUserId}
+		        ,#{item.createDate}
+		        ,#{item.modifyUserName}
+		        ,#{item.modifyUserId}
+		        ,#{item.modifyDate}
+	            )
+	         </foreach>
+	</insert>
+</mapper>

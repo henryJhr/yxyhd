@@ -1,0 +1,485 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.myg.yxy.dao.ActivityUserDao">
+
+	<resultMap id="baseResultModelMap" type="com.myg.yxy.model.ActivityUserModel">
+		<result column="id" property="id"/>
+		<result column="user_id" property="userId"/>
+		<result column="activity_id" property="activityId"/>
+		<result column="status" property="status"/>
+		<result column="create_user_name" property="createUserName"/>
+		<result column="create_user_id" property="createUserId"/>
+		<result column="create_date" property="createDate"/>
+		<result column="modify_user_name" property="modifyUserName"/>
+		<result column="modify_user_id" property="modifyUserId"/>
+		<result column="modify_date" property="modifyDate"/>
+	</resultMap>
+
+	<sql id="baseColumnList">
+		 id
+		,user_id
+		,activity_id
+		,status
+		,create_user_name
+		,create_user_id
+		,create_date
+		,modify_user_name
+		,modify_user_id
+		,modify_date
+	</sql>
+
+	<!--
+	* insert新增一条数据
+	-->
+	<insert id="getInsert"
+			parameterType="com.myg.yxy.model.ActivityModel"
+			useGeneratedKeys="true"
+			keyProperty="id">
+
+	        insert into
+			busi_activity_user
+	            (
+		         id
+		        ,user_id
+		        ,activity_id
+		        ,status
+		        ,create_user_name
+		        ,create_user_id
+		        ,create_date
+		        ,modify_user_name
+		        ,modify_user_id
+		        ,modify_date
+	            )
+	        values
+	            (
+		         #{id}
+		        ,#{userId}
+		        ,#{activityId}
+		        ,#{status}
+		        ,#{createUserName}
+		        ,#{createUserId}
+		        ,#{createDate}
+		        ,#{modifyUserName}
+		        ,#{modifyUserId}
+		        ,#{modifyDate}
+	            )
+	</insert>
+
+	<!--
+	* deleteById根据主键删除一条数据
+	-->
+	<delete id="deleteById"
+	        parameterType="long">
+
+	        delete from busi_activity_user
+	        where id = #{id}
+	</delete>
+
+	<!--
+	* deleteByIds根据主键批量删除数据
+	-->
+	<delete id="deleteByIds"
+	        parameterType="long">
+
+	        delete from busi_activity_user where id in
+
+	        <foreach  collection="array" item="id" open="(" separator="," close=")">
+	            #{id}
+	        </foreach>
+	</delete>
+
+	<!--
+	* deleteBy根据实体对象删除数据
+	-->
+	<delete id="deleteBy"
+	        parameterType="com.myg.yxy.model.ActivityUserModel">
+
+	        delete from busi_activity_user
+
+			<where>
+				<if test="id != null">
+					and id = #{id}
+				</if>
+
+				<if test="userId != null">
+					and user_id = #{userId}
+				</if>
+
+				<if test="activityId != null">
+					and activity_id = #{activityId}
+				</if>
+
+				<if test="status != null">
+					and status = #{status}
+				</if>
+
+				<if test="createUserName != null and createUserName != ''">
+					and create_user_name = #{createUserName}
+				</if>
+
+				<if test="createUserId != null">
+					and create_user_id = #{createUserId}
+				</if>
+
+				<if test="createDate != null">
+					and create_date = #{createDate}
+				</if>
+
+				<if test="modifyUserName != null and modifyUserName != ''">
+					and modify_user_name = #{modifyUserName}
+				</if>
+
+				<if test="modifyUserId != null and modifyUserId != ''">
+					and modify_user_id = #{modifyUserId}
+				</if>
+
+				<if test="modifyDate != null">
+					and modify_date = #{modifyDate}
+				</if>
+
+			</where>
+	</delete>
+
+	<!--
+	* updateById根据主键更新一条数据
+	-->
+	<update id="updateById"
+	        parameterType="com.myg.yxy.model.ActivityUserModel">
+
+	        update busi_activity_user
+
+	        <set>
+				<if test="id != null">
+					id = #{id},
+				</if>
+
+				<if test="userId != null">
+					user_id = #{userId},
+				</if>
+
+				<if test="activityId != null">
+					activity_id = #{activityId},
+				</if>
+
+				<if test="status != null">
+					status = #{status},
+				</if>
+
+				<if test="createUserName != null and createUserName != ''">
+					create_user_name = #{createUserName},
+				</if>
+
+				<if test="createUserId != null">
+					create_user_id = #{createUserId},
+				</if>
+
+				<if test="createDate != null">
+					create_date = #{createDate},
+				</if>
+
+				<if test="modifyUserName != null and modifyUserName != ''">
+					modify_user_name = #{modifyUserName},
+				</if>
+
+				<if test="modifyUserId != null and modifyUserId != ''">
+					modify_user_id = #{modifyUserId},
+				</if>
+
+				<if test="modifyDate != null">
+					modify_date = #{modifyDate},
+				</if>
+
+	        </set>
+	        where id = #{id}
+
+	</update>
+
+	<!--
+	* getModelById根据主键获取一个实体对象
+	-->
+	<select id="getModelById"
+	        parameterType="long"
+	        resultMap="baseResultModelMap">
+
+	        select
+	            <include refid="baseColumnList"/>
+	        from busi_activity_user
+			where id = #{id}
+	</select>
+
+	<!--
+	* getModelBy根据实体对象动态条件获取一个实体对象
+	-->
+	<select id="getModelBy"
+	        parameterType="com.myg.yxy.model.ActivityUserModel"
+			resultMap="baseResultModelMap">
+
+	        select
+	            <include refid="baseColumnList"/>
+	        from busi_activity_user
+
+			<where>
+				<if test="id != null">
+					and id = #{id}
+				</if>
+
+				<if test="userId != null">
+					and user_id = #{userId}
+				</if>
+
+				<if test="activityId != null">
+					and activity_id = #{activityId}
+				</if>
+
+				<if test="status != null">
+					and status = #{status}
+				</if>
+
+				<if test="createUserName != null and createUserName != ''">
+					and create_user_name = #{createUserName}
+				</if>
+
+				<if test="createUserId != null">
+					and create_user_id = #{createUserId}
+				</if>
+
+				<if test="createDate != null">
+					and create_date = #{createDate}
+				</if>
+
+				<if test="modifyUserName != null and modifyUserName != ''">
+					and modify_user_name = #{modifyUserName}
+				</if>
+
+				<if test="modifyUserId != null and modifyUserId != ''">
+					and modify_user_id = #{modifyUserId}
+				</if>
+
+				<if test="modifyDate != null">
+					and modify_date = #{modifyDate}
+				</if>
+			</where>
+	</select>
+
+	<!--
+	* getList根据实体对象动态条件查询不分页
+	-->
+	<select id="getList"
+	        parameterType="com.myg.yxy.model.ActivityUserModel"
+			resultMap="baseResultModelMap">
+
+	        select
+	            <include refid="baseColumnList"/>
+	        from busi_activity_user
+
+			<where>
+				<if test="id != null">
+					and id = #{id}
+				</if>
+
+				<if test="userId != null">
+					and user_id = #{userId}
+				</if>
+
+				<if test="activityId != null">
+					and activity_id = #{activityId}
+				</if>
+
+				<if test="status != null">
+					and status = #{status}
+				</if>
+
+				<if test="createUserName != null and createUserName != ''">
+					and create_user_name = #{createUserName}
+				</if>
+
+				<if test="createUserId != null">
+					and create_user_id = #{createUserId}
+				</if>
+
+				<if test="createDate != null">
+					and create_date = #{createDate}
+				</if>
+
+				<if test="modifyUserName != null and modifyUserName != ''">
+					and modify_user_name = #{modifyUserName}
+				</if>
+
+				<if test="modifyUserId != null and modifyUserId != ''">
+					and modify_user_id = #{modifyUserId}
+				</if>
+
+				<if test="modifyDate != null">
+					and modify_date = #{modifyDate}
+				</if>
+
+			</where>
+	</select>
+
+	<!--
+	* getListPage根据实体对象动态条件查询分页
+	-->
+	<select id="getListPage"
+	        parameterType="com.myg.yxy.model.ActivityUserModel"
+			resultMap="baseResultModelMap">
+
+	        select
+	            <include refid="baseColumnList"/>
+	        from busi_activity_user
+
+			<where>
+				<if test="id != null">
+					and id = #{id}
+				</if>
+
+				<if test="userId != null">
+					and user_id = #{userId}
+				</if>
+
+				<if test="activityId != null">
+					and activity_id = #{activityId}
+				</if>
+
+				<if test="status != null">
+					and status = #{status}
+				</if>
+
+				<if test="createUserName != null and createUserName != ''">
+					and create_user_name = #{createUserName}
+				</if>
+
+				<if test="createUserId != null">
+					and create_user_id = #{createUserId}
+				</if>
+
+				<if test="createDate != null">
+					and create_date = #{createDate}
+				</if>
+
+				<if test="modifyUserName != null and modifyUserName != ''">
+					and modify_user_name = #{modifyUserName}
+				</if>
+
+				<if test="modifyUserId != null and modifyUserId != ''">
+					and modify_user_id = #{modifyUserId}
+				</if>
+
+				<if test="modifyDate != null">
+					and modify_date = #{modifyDate}
+				</if>
+
+			</where>
+	</select>
+
+	<!--
+	* checkById根据主键检查数据是否存在
+	-->
+	<select id="checkById"
+	        parameterType="long"
+	        resultType="java.lang.Integer">
+
+	        select count(1) from busi_activity_user
+	        where id = #{id}
+
+	</select>
+
+	<!--
+	* checkBy根据实体对象检查数据是否存在
+	-->
+	<select id="checkBy"
+	        parameterType="com.myg.yxy.model.ActivityUserModel"
+	        resultType="java.lang.Integer">
+
+	        select count(1) from busi_activity_user
+
+			<where>
+				<if test="id != null">
+					and id = #{id}
+				</if>
+
+				<if test="userId != null">
+					and user_id = #{userId}
+				</if>
+
+				<if test="activityId != null">
+					and activity_id = #{activityId}
+				</if>
+
+				<if test="status != null">
+					and status = #{status}
+				</if>
+
+				<if test="createUserName != null and createUserName != ''">
+					and create_user_name = #{createUserName}
+				</if>
+
+				<if test="createUserId != null">
+					and create_user_id = #{createUserId}
+				</if>
+
+				<if test="createDate != null">
+					and create_date = #{createDate}
+				</if>
+
+				<if test="modifyUserName != null and modifyUserName != ''">
+					and modify_user_name = #{modifyUserName}
+				</if>
+
+				<if test="modifyUserId != null and modifyUserId != ''">
+					and modify_user_id = #{modifyUserId}
+				</if>
+
+				<if test="modifyDate != null">
+					and modify_date = #{modifyDate}
+				</if>
+			</where>
+	</select>
+
+	<!--
+	* insertBatch批量新增数据
+	-->
+	<insert id="insertBatch"
+	        parameterType="java.util.List">
+
+	        insert into busi_activity_user
+	            (
+		         id
+		        ,user_id
+		        ,activity_id
+		        ,status
+		        ,create_user_name
+		        ,create_user_id
+		        ,create_date
+		        ,modify_user_name
+		        ,modify_user_id
+		        ,modify_date
+	            )
+	        values
+	        <foreach collection="list" item="item" index="index" separator=",">
+	            (
+		         #{item.id}
+		        ,#{item.userId}
+		        ,#{item.activityId}
+		        ,#{item.status}
+		        ,#{item.createUserName}
+		        ,#{item.createUserId}
+		        ,#{item.createDate}
+		        ,#{item.modifyUserName}
+		        ,#{item.modifyUserId}
+		        ,#{item.modifyDate}
+	            )
+	         </foreach>
+	</insert>
+    <!--
+* checkByUser根据userid查询用户关注的活动个数
+-->
+    <select id="checkByUser"
+            parameterType="long"
+            resultType="java.lang.Integer">
+
+        select count(*) from busi_activity_user
+        where id = #{id}
+
+    </select>
+</mapper>

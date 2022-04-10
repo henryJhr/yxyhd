@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>无权限访问</title>
+  <script src="../js/vue.js?_t=kwqa1a"></script>
+  <script src="../js/vue-router.min.js?_t=kwajsd"></script>
+  <script src="../js/vuex.min.js?_t=kawka"></script>
+  <script src="../js/iview.min.js?_t=kwsaa"></script>
+  <script src="../js/axios.min.js?_t=kaswda"></script>
+  <script src="../js/lodash.min.js?_t=kaswd1a"></script>
+  <script src="../js/moment.min.js?_t=wkada1"></script>
+  <script src="../js/vue-treeselect.min.js?_t=kswaa"></script>
+  <link rel="stylesheet/less" href="css/login.less" type="text/less"/>
+  <script type="text/javascript" src="js/less.js?_t=asdwwa"></script>
+</head>
+<body>
+<div class="error403">
+  <div class="ivu-exception">
+    <div class="ivu-exception-img">
+      <div class="ivu-exception-img-element" style="background-image: url('image/icon-403.svg')"></div>
+    </div>
+    <div class="ivu-exception-content"><h1>403</h1>
+      <div class="ivu-exception-content-desc">抱歉，你无权访问该页面</div>
+      <div class="ivu-exception-content-actions">
+        <a id="goHome" class="ivu-btn ivu-btn-primary ivu-btn-large">
+          <span>返回首页</span></a></div>
+    </div>
+  </div>
+</div>
+</body>
+</html>
+<script>
+    $(function () {
+        $("#goHome").click(function () {
+          window.location.href = window.g.localhostUrl + '/#/commodityIndex';
+        })
+    })
+</script>

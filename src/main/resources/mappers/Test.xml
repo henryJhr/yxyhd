@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.myg.yxy.dao.TestMapper">
+
+    <resultMap id="BaseResultMap" type="com.myg.yxy.model.TestModel">
+        <id column="id" jdbcType="INTEGER" property="pkId"/>
+        <result column="Rankc" jdbcType="INTEGER" property="Rankc"/>
+        <result column="age" jdbcType="INTEGER" property="age"/>
+        <result column="sex" jdbcType="INTEGER" property="sex"/>
+        <result column="edu" jdbcType="INTEGER" property="edu"/>
+        <result column="openid" jdbcType="VARCHAR" property="openid"/>
+    </resultMap>
+
+    <select id="AvgRank"  resultType="java.lang.Double">
+        select
+            avg(Rankc)
+        from test_table
+    </select>
+
+    <insert id="insert" parameterType="com.myg.yxy.model.TestModel">
+        insert into test_table (Rankc, age, sex,edu)
+        values (#{Rankc}, #{age}, #{sex},#{edu})
+    </insert>
+
+
+
+</mapper>

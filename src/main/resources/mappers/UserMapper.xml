@@ -1,0 +1,747 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.myg.yxy.dao.UserDao">
+
+	<resultMap id="baseResultModelMap" type="com.myg.yxy.model.UserModel">
+		<result column="id" property="id"/>
+		<result column="user_name" property="userName"/>
+		<result column="user_code" property="userCode"/>
+		<result column="user_avatar" property="userAvatar"/>
+		<result column="sex" property="sex"/>
+		<result column="email" property="email"/>
+		<result column="link_mobile" property="linkMobile"/>
+		<result column="password" property="password"/>
+		<result column="salt" property="salt"/>
+		<result column="locked" property="locked"/>
+		<result column="config_id" property="configId"/>
+		<result column="config_name" property="configName"/>
+		<result column="create_user_name" property="createUserName"/>
+		<result column="create_user_id" property="createUserId"/>
+		<result column="create_date" property="createDate"/>
+		<result column="modify_user_name" property="modifyUserName"/>
+		<result column="modify_user_id" property="modifyUserId"/>
+		<result column="modify_date" property="modifyDate"/>
+	</resultMap>
+
+	<sql id="baseColumnList">
+		 id
+		,user_name
+		,user_code
+		,user_avatar
+		,sex
+		,email
+		,link_mobile
+		,password
+		,salt
+		,locked
+		,config_id
+		,config_name
+		,create_user_name
+		,create_user_id
+		,create_date
+		,modify_user_name
+		,modify_user_id
+		,modify_date
+	</sql>
+
+	<!--
+	* insert新增一条数据
+	-->
+	<insert id="insert"
+			parameterType="com.myg.yxy.model.UserModel"
+			useGeneratedKeys="true"
+			keyProperty="id">
+
+	        insert busi_user
+	            (
+		         id
+		        ,user_name
+		        ,user_code
+		        ,user_avatar
+		        ,sex
+		        ,email
+		        ,link_mobile
+		        ,password
+		        ,salt
+		        ,locked
+		        ,config_id
+		        ,config_name
+		        ,create_user_name
+		        ,create_user_id
+		        ,create_date
+		        ,modify_user_name
+		        ,modify_user_id
+		        ,modify_date
+	            )
+	        values
+	            (
+		         #{id}
+		        ,#{userName}
+		        ,#{userCode}
+		        ,#{userAvatar}
+		        ,#{sex}
+		        ,#{email}
+		        ,#{linkMobile}
+		        ,#{password}
+		        ,#{salt}
+		        ,#{locked}
+		        ,#{configId}
+		        ,#{configName}
+		        ,#{createUserName}
+		        ,#{createUserId}
+		        ,#{createDate}
+		        ,#{modifyUserName}
+		        ,#{modifyUserId}
+		        ,#{modifyDate}
+	            )
+	</insert>
+
+	<!--
+	* deleteById根据主键删除一条数据
+	-->
+	<delete id="deleteById"
+	        parameterType="long">
+
+	        delete from busi_user
+
+	        <where>
+	            <if test="id != null">
+	                id = #{id}
+	            </if>
+	        </where>
+	</delete>
+
+	<!--
+	* deleteByIds根据主键批量删除数据
+	-->
+	<delete id="deleteByIds"
+	        parameterType="long">
+
+	        delete from busi_user where id in
+
+	        <foreach  collection="array" item="id" open="(" separator="," close=")">
+	            #{id}
+	        </foreach>
+	</delete>
+
+	<!--
+	* deleteBy根据实体对象删除数据
+	-->
+	<delete id="deleteBy"
+	        parameterType="com.myg.yxy.model.UserModel">
+
+	        delete from busi_user
+
+			<where>
+				<if test="id != null">
+					and id = #{id}
+				</if>
+
+				<if test="userName != null and userName != ''">
+					and user_name = #{userName}
+				</if>
+
+				<if test="userCode != null and userCode != ''">
+					and user_code = #{userCode}
+				</if>
+
+				<if test="userAvatar != null and userAvatar != ''">
+					and user_avatar = #{userAvatar}
+				</if>
+
+				<if test="sex != null">
+					and sex = #{sex}
+				</if>
+
+				<if test="email != null and email != ''">
+					and email = #{email}
+				</if>
+
+				<if test="linkMobile != null and linkMobile != ''">
+					and link_mobile = #{linkMobile}
+				</if>
+
+				<if test="password != null and password != ''">
+					and password = #{password}
+				</if>
+
+				<if test="salt != null and salt != ''">
+					and salt = #{salt}
+				</if>
+
+				<if test="locked != null">
+					and locked = #{locked}
+				</if>
+
+				<if test="configId != null">
+					and config_id = #{configId}
+				</if>
+
+				<if test="configName != null and configName != ''">
+					and config_name = #{configName}
+				</if>
+
+				<if test="createUserName != null and createUserName != ''">
+					and create_user_name = #{createUserName}
+				</if>
+
+				<if test="createUserId != null">
+					and create_user_id = #{createUserId}
+				</if>
+
+				<if test="createDate != null">
+					and create_date = #{createDate}
+				</if>
+
+				<if test="modifyUserName != null and modifyUserName != ''">
+					and modify_user_name = #{modifyUserName}
+				</if>
+
+				<if test="modifyUserId != null and modifyUserId != ''">
+					and modify_user_id = #{modifyUserId}
+				</if>
+
+				<if test="modifyDate != null">
+					and modify_date = #{modifyDate}
+				</if>
+
+			</where>
+	</delete>
+
+	<!--
+	* updateById根据主键更新一条数据
+	-->
+	<update id="updateById"
+	        parameterType="com.myg.yxy.model.UserModel">
+
+	        update busi_user
+
+	        <set>
+				<if test="id != null">
+					id = #{id},
+				</if>
+
+				<if test="userName != null and userName != ''">
+					user_name = #{userName},
+				</if>
+
+				<if test="userCode != null and userCode != ''">
+					user_code = #{userCode},
+				</if>
+
+				<if test="userAvatar != null and userAvatar != ''">
+					user_avatar = #{userAvatar},
+				</if>
+
+				<if test="sex != null">
+					sex = #{sex},
+				</if>
+
+				<if test="email != null and email != ''">
+					email = #{email},
+				</if>
+
+				<if test="linkMobile != null and linkMobile != ''">
+					link_mobile = #{linkMobile},
+				</if>
+
+				<if test="password != null and password != ''">
+					password = #{password},
+				</if>
+
+				<if test="salt != null and salt != ''">
+					salt = #{salt},
+				</if>
+
+				<if test="locked != null">
+					locked = #{locked},
+				</if>
+
+				<if test="configId != null">
+					config_id = #{configId},
+				</if>
+
+				<if test="configName != null and configName != ''">
+					config_name = #{configName},
+				</if>
+
+				<if test="createUserName != null and createUserName != ''">
+					create_user_name = #{createUserName},
+				</if>
+
+				<if test="createUserId != null">
+					create_user_id = #{createUserId},
+				</if>
+
+				<if test="createDate != null">
+					create_date = #{createDate},
+				</if>
+
+				<if test="modifyUserName != null and modifyUserName != ''">
+					modify_user_name = #{modifyUserName},
+				</if>
+
+				<if test="modifyUserId != null and modifyUserId != ''">
+					modify_user_id = #{modifyUserId},
+				</if>
+
+				<if test="modifyDate != null">
+					modify_date = #{modifyDate},
+				</if>
+
+	        </set>
+
+	        <where>
+	            <if test="id != null">
+	                id = #{id}
+	            </if>
+	        </where>
+	</update>
+
+	<!--
+	* getModelById根据主键获取一个实体对象
+	-->
+	<select id="getModelById"
+	        parameterType="long"
+			resultMap="baseResultModelMap">
+
+	        select
+	            <include refid="baseColumnList"/>
+	        from busi_user
+
+	        <where>
+	            <if test="id != null">
+	                id = #{id}
+	            </if>
+	        </where>
+	</select>
+
+	<!--
+	* getModelBy根据实体对象动态条件获取一个实体对象
+	-->
+	<select id="getModelBy"
+	        parameterType="com.myg.yxy.model.UserModel"
+			resultMap="baseResultModelMap">
+
+	        select
+	            <include refid="baseColumnList"/>
+	        from busi_user
+
+			<where>
+				<if test="id != null">
+					and id = #{id}
+				</if>
+
+				<if test="userName != null and userName != ''">
+					and user_name = #{userName}
+				</if>
+
+				<if test="userCode != null and userCode != ''">
+					and user_code = #{userCode}
+				</if>
+
+				<if test="userAvatar != null and userAvatar != ''">
+					and user_avatar = #{userAvatar}
+				</if>
+
+				<if test="sex != null">
+					and sex = #{sex}
+				</if>
+
+				<if test="email != null and email != ''">
+					and email = #{email}
+				</if>
+
+				<if test="linkMobile != null and linkMobile != ''">
+					and link_mobile = #{linkMobile}
+				</if>
+
+				<if test="password != null and password != ''">
+					and password = #{password}
+				</if>
+
+				<if test="salt != null and salt != ''">
+					and salt = #{salt}
+				</if>
+
+				<if test="locked != null">
+					and locked = #{locked}
+				</if>
+
+				<if test="configId != null">
+					and config_id = #{configId}
+				</if>
+
+				<if test="configName != null and configName != ''">
+					and config_name = #{configName}
+				</if>
+
+				<if test="createUserName != null and createUserName != ''">
+					and create_user_name = #{createUserName}
+				</if>
+
+				<if test="createUserId != null">
+					and create_user_id = #{createUserId}
+				</if>
+
+				<if test="createDate != null">
+					and create_date = #{createDate}
+				</if>
+
+				<if test="modifyUserName != null and modifyUserName != ''">
+					and modify_user_name = #{modifyUserName}
+				</if>
+
+				<if test="modifyUserId != null and modifyUserId != ''">
+					and modify_user_id = #{modifyUserId}
+				</if>
+
+				<if test="modifyDate != null">
+					and modify_date = #{modifyDate}
+				</if>
+			</where>
+	</select>
+
+	<!--
+	* getList根据实体对象动态条件查询不分页
+	-->
+	<select id="getList"
+	        parameterType="com.myg.yxy.model.UserModel"
+			resultMap="baseResultModelMap">
+
+	        select
+	            <include refid="baseColumnList"/>
+	        from busi_user
+
+			<where>
+				<if test="id != null">
+					and id = #{id}
+				</if>
+
+				<if test="userName != null and userName != ''">
+					and user_name = #{userName}
+				</if>
+
+				<if test="userCode != null and userCode != ''">
+					and user_code = #{userCode}
+				</if>
+
+				<if test="userAvatar != null and userAvatar != ''">
+					and user_avatar = #{userAvatar}
+				</if>
+
+				<if test="sex != null">
+					and sex = #{sex}
+				</if>
+
+				<if test="email != null and email != ''">
+					and email = #{email}
+				</if>
+
+				<if test="linkMobile != null and linkMobile != ''">
+					and link_mobile = #{linkMobile}
+				</if>
+
+				<if test="password != null and password != ''">
+					and password = #{password}
+				</if>
+
+				<if test="salt != null and salt != ''">
+					and salt = #{salt}
+				</if>
+
+				<if test="locked != null">
+					and locked = #{locked}
+				</if>
+
+				<if test="configId != null">
+					and config_id = #{configId}
+				</if>
+
+				<if test="configName != null and configName != ''">
+					and config_name = #{configName}
+				</if>
+
+				<if test="createUserName != null and createUserName != ''">
+					and create_user_name = #{createUserName}
+				</if>
+
+				<if test="createUserId != null">
+					and create_user_id = #{createUserId}
+				</if>
+
+				<if test="createDate != null">
+					and create_date = #{createDate}
+				</if>
+
+				<if test="modifyUserName != null and modifyUserName != ''">
+					and modify_user_name = #{modifyUserName}
+				</if>
+
+				<if test="modifyUserId != null and modifyUserId != ''">
+					and modify_user_id = #{modifyUserId}
+				</if>
+
+				<if test="modifyDate != null">
+					and modify_date = #{modifyDate}
+				</if>
+
+			</where>
+	</select>
+
+	<!--
+	* getListPage根据实体对象动态条件查询分页
+	-->
+	<select id="getListPage"
+	        parameterType="com.myg.yxy.model.UserModel"
+			resultMap="baseResultModelMap">
+
+	        select
+	            <include refid="baseColumnList"/>
+	        from busi_user
+
+			<where>
+				<if test="id != null">
+					and id = #{id}
+				</if>
+
+				<if test="userName != null and userName != ''">
+					and user_name = #{userName}
+				</if>
+
+				<if test="userCode != null and userCode != ''">
+					and user_code = #{userCode}
+				</if>
+
+				<if test="userAvatar != null and userAvatar != ''">
+					and user_avatar = #{userAvatar}
+				</if>
+
+				<if test="sex != null">
+					and sex = #{sex}
+				</if>
+
+				<if test="email != null and email != ''">
+					and email = #{email}
+				</if>
+
+				<if test="linkMobile != null and linkMobile != ''">
+					and link_mobile = #{linkMobile}
+				</if>
+
+				<if test="password != null and password != ''">
+					and password = #{password}
+				</if>
+
+				<if test="salt != null and salt != ''">
+					and salt = #{salt}
+				</if>
+
+				<if test="locked != null">
+					and locked = #{locked}
+				</if>
+
+				<if test="configId != null">
+					and config_id = #{configId}
+				</if>
+
+				<if test="configName != null and configName != ''">
+					and config_name = #{configName}
+				</if>
+
+				<if test="createUserName != null and createUserName != ''">
+					and create_user_name = #{createUserName}
+				</if>
+
+				<if test="createUserId != null">
+					and create_user_id = #{createUserId}
+				</if>
+
+				<if test="createDate != null">
+					and create_date = #{createDate}
+				</if>
+
+				<if test="modifyUserName != null and modifyUserName != ''">
+					and modify_user_name = #{modifyUserName}
+				</if>
+
+				<if test="modifyUserId != null and modifyUserId != ''">
+					and modify_user_id = #{modifyUserId}
+				</if>
+
+				<if test="modifyDate != null">
+					and modify_date = #{modifyDate}
+				</if>
+
+			</where>
+	</select>
+
+	<!--
+	* checkById根据openid检查数据是否存在
+	-->
+	<select id="checkById"
+	        parameterType="com.myg.yxy.model.UserModel"
+	        resultType="java.lang.Integer">
+
+	        select count(1) from busi_user
+
+	        <where>
+	            <if test="configName != null">
+                    config_name = #{configName}
+	            </if>
+	        </where>
+	</select>
+
+	<!--
+	* checkBy根据实体对象检查数据是否存在
+	-->
+	<select id="checkBy"
+	        parameterType="com.myg.yxy.model.UserModel"
+	        resultType="java.lang.Integer">
+
+	        select count(1) from busi_user
+
+			<where>
+				<if test="id != null">
+					and id = #{id}
+				</if>
+
+				<if test="userName != null and userName != ''">
+					and user_name = #{userName}
+				</if>
+
+				<if test="userCode != null and userCode != ''">
+					and user_code = #{userCode}
+				</if>
+
+				<if test="userAvatar != null and userAvatar != ''">
+					and user_avatar = #{userAvatar}
+				</if>
+
+				<if test="sex != null">
+					and sex = #{sex}
+				</if>
+
+				<if test="email != null and email != ''">
+					and email = #{email}
+				</if>
+
+				<if test="linkMobile != null and linkMobile != ''">
+					and link_mobile = #{linkMobile}
+				</if>
+
+				<if test="password != null and password != ''">
+					and password = #{password}
+				</if>
+
+				<if test="salt != null and salt != ''">
+					and salt = #{salt}
+				</if>
+
+				<if test="locked != null">
+					and locked = #{locked}
+				</if>
+
+				<if test="configId != null">
+					and config_id = #{configId}
+				</if>
+
+				<if test="configName != null and configName != ''">
+					and config_name = #{configName}
+				</if>
+
+				<if test="createUserName != null and createUserName != ''">
+					and create_user_name = #{createUserName}
+				</if>
+
+				<if test="createUserId != null">
+					and create_user_id = #{createUserId}
+				</if>
+
+				<if test="createDate != null">
+					and create_date = #{createDate}
+				</if>
+
+				<if test="modifyUserName != null and modifyUserName != ''">
+					and modify_user_name = #{modifyUserName}
+				</if>
+
+				<if test="modifyUserId != null and modifyUserId != ''">
+					and modify_user_id = #{modifyUserId}
+				</if>
+
+				<if test="modifyDate != null">
+					and modify_date = #{modifyDate}
+				</if>
+
+			</where>
+	</select>
+
+	<!--
+	* insertBatch批量新增数据
+	-->
+	<insert id="insertBatch"
+	        parameterType="java.util.List">
+
+	        insert into busi_user
+	            (
+		         id
+		        ,user_name
+		        ,user_code
+		        ,user_avatar
+		        ,sex
+		        ,email
+		        ,link_mobile
+		        ,password
+		        ,salt
+		        ,locked
+		        ,config_id
+		        ,config_name
+		        ,create_user_name
+		        ,create_user_id
+		        ,create_date
+		        ,modify_user_name
+		        ,modify_user_id
+		        ,modify_date
+	            )
+	        values
+	        <foreach collection="list" item="item" index="index" separator=",">
+	            (
+		         #{item.id}
+		        ,#{item.userName}
+		        ,#{item.userCode}
+		        ,#{item.userAvatar}
+		        ,#{item.sex}
+		        ,#{item.email}
+		        ,#{item.linkMobile}
+		        ,#{item.password}
+		        ,#{item.salt}
+		        ,#{item.locked}
+		        ,#{item.configId}
+		        ,#{item.configName}
+		        ,#{item.createUserName}
+		        ,#{item.createUserId}
+		        ,#{item.createDate}
+		        ,#{item.modifyUserName}
+		        ,#{item.modifyUserId}
+		        ,#{item.modifyDate}
+	            )
+	         </foreach>
+	</insert>
+
+    <select id="getUserId"
+            parameterType="com.myg.yxy.model.UserModel"
+            resultType="java.lang.Long">
+
+        select
+        id
+        from busi_user
+
+        <where>
+            <if test="id != null">
+                config_name = #{configName}
+            </if>
+        </where>
+    </select>
+</mapper>

@@ -1,0 +1,10 @@
+  ${AnsiColor.BRIGHT_CYAN}
+██╗  ██╗██╗  ██╗███████╗ ██████╗ ███████╗████████╗
+██║  ██║╚██╗██╔╝██╔════╝██╔═══██╗██╔════╝╚══██╔══╝
+███████║ ╚███╔╝ ███████╗██║   ██║█████╗     ██║
+██╔══██║ ██╔██╗ ╚════██║██║   ██║██╔══╝     ██║
+██║  ██║██╔╝ ██╗███████║╚██████╔╝██║        ██║
+╚═╝  ╚═╝╚═╝  ╚═╝╚══════╝ ╚═════╝ ╚═╝        ╚═╝
+  ${AnsiColor.YELLOW}      :: Spring Boot ::             ${AnsiColor.WHITE}(v${spring-boot.version})
+  ${AnsiColor.YELLOW}      :: Application Version ::     ${AnsiColor.WHITE}(v1.0.0)
+  ${AnsiColor.BRIGHT_CYAN}
